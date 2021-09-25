@@ -9,7 +9,7 @@ GoRogue v3 and SadConsole v9 are both major refactors of their predecessors.  On
 
 For reference, functionality now in the primitives library includes all of the basic grid primitives from GoRogue v2 (Area, Point, Rectangle, Distance, AdjacencyRule, Radius, etc), the map view system from GoRogue v2 (now called Grid Views), and all the basic color representations from SadConsole (Color, Palette, Gradient).  It also includes some new functionality such as representations for polar coordinates, etc.
 
-## BackEnd Flexibility
+## Back-End Flexibility
 SadConsole v9 is no longer based on MonoGame; it instead creates an abstraction independent of any particular back-end to suit its needs, and then provides numerous implementations of that abstraction for common frameworks such as MonoGame and SFML.  It also allows a user to implement their own back-end if they so desire.
 
 This pairs well GoRogue in that it provides some level of portability, yet does not forgo the possibility of interfacing directly with a back-end to do things outside the scope of a console emulation (render non-grid things, for example)

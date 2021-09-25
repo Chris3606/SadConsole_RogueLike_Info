@@ -12,7 +12,7 @@ For reference, functionality now in the primitives library includes all of the b
 ## Back-End Flexibility
 SadConsole v9 is no longer based on MonoGame; it instead creates an abstraction independent of any particular back-end to suit its needs, and then provides numerous implementations of that abstraction for common frameworks such as MonoGame and SFML.  It also allows a user to implement their own back-end if they so desire.
 
-This pairs well GoRogue in that it provides some level of portability, yet does not forgo the possibility of interfacing directly with a back-end to do things outside the scope of a console emulation (render non-grid things, for example)
+This pairs well GoRogue in that it provides some level of portability, yet does not forgo the possibility of interfacing directly with a back-end to do things outside the scope of a console emulation (render non-grid based images, for example)
 
 ## Cooperative Community
 GoRogue and SadConsole's communities interact frequently.  There are numerous developers on SadConsole's discord that are using GoRogue with SadConsole, and the developers of GoRogue and SadConsole respectively cooperate on various projects (including the shared primitives library).
@@ -30,6 +30,7 @@ Since GoRogue v3 is not a finished product, there are a few things to be aware o
 | TheSadRogue.Primitives | Full              | Yes    | Stable        |
 | GoRogue                | Alpha             | Yes    | Mostly stable; ongoing refactors but generally manageable and well documented.  No major known bugs.  Serialization not fully implemented. |
 | SadConsole             | Full              | Yes    | Stable        |
+| SadConsole.Extended    | Full              | Yes    | Stable        |
 | TheSadRogue.Primitives | Unpublished Alpha | No     | Partially stable; no major known bugs, and no major refactors planned.  Serialization not implemented. |
 
 Note that although the integration library does not have a released NuGet package, the source is openly avaialable and it is set up to compile a NuGet package; and therefore it is quite viable to clone the source and compile the code to a NuGet package that you may use in a local NuGet feed.  Additionally, an official NuGet release is expected soon.

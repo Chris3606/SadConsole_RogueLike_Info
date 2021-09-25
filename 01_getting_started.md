@@ -1,5 +1,5 @@
 # Getting Started
-This page will serve as a general guide for setting up a project for using SadConsole and GoRogue.  It is not a step-by-step tutorial, per-se, and assumes you know how to do basic things like install NuGet packages.  Note that each library involved provides its own documentation, as linked in the [readme](README.md#back_end_flexibility); and this set of write-ups is NOT intended to be a substitute therein.
+This page will serve as a general guide for setting up a project for using SadConsole and GoRogue.  It is not a step-by-step tutorial, per-se, and assumes you know how to do basic things like install NuGet packages.  Note that each library involved provides its own documentation, as linked in the [readme](README.md#documentation); and this set of write-ups is NOT intended to be a substitute therein.
 
 # Prequisites
 Before creating a project, it is recommended that you consider the following items:

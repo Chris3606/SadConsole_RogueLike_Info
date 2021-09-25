@@ -10,7 +10,7 @@ SadConsole and GoRogue all support .NET Standard 2.1 or greater, .NET Core 3.1 o
 Note that .NET Framework is NOT supported.
 
 ## Decide on a Rendering Back-End
-As outlined in the [readme](README.md#back_end_flexibility), SadConsole v9 offers support for multiple back-end renderers.  It is possible as a library user to implement support for a custom back-end; however doing so is beyond the scope of this document.  Currently, the SadConsole author provides back-ends for MonoGame and SFML:
+As outlined in the [readme](README.md#back-end-flexibility), SadConsole v9 offers support for multiple back-end renderers.  It is possible as a library user to implement support for a custom back-end; however doing so is beyond the scope of this document.  Currently, the SadConsole author provides back-ends for MonoGame and SFML:
 - [SadConsole.Host.MonoGame](https://www.nuget.org/packages/SadConsole.Host.MonoGame/)
     - All other things equal, this is generally the recommended back-end for starting out.  Simply put, it has the most users, and comes with the easiest setup and fewest caveats cross-platform.
 - [SadConsole.Host.SFML](https://www.nuget.org/packages/SadConsole.Host.SFML/)
@@ -52,8 +52,11 @@ Note that, if in the future, an update is released to the integration library an
 
 For reference, this will leave you with a project that has the following NuGet packages installed (some explicitly, the rest automatically because they are dependencies):
 - `TheSadRogue.Primitives` - Library of shared primitive types between GoRogue and SadConsole.
+- `Newtonsoft.JSON` - JSON library used by SadConsole for serialization.
 - `SadConsole` - The core SadConsole package, with no back-end renderer implementation.
 - `SadConsole.Host.[MonoGame | SFML]` - The package implementing the back-end renderer for the framework you decided on.
+- `Troschuetz.Random` - RNG library on which GoRogue relies.
+- `OptimizedPriorityQueue` - Priority queue library on which GoRogue relies.
 - `GoRogue` - The GoRogue package.
 - `TheSadRogue.Integration` - Library containing APIs to integrate GoRogue's GameFramework with SadConsole.
 

@@ -12,15 +12,15 @@ For reference, functionality now in the primitives library includes all of the b
 ## Back-End Flexibility
 SadConsole v9 is no longer based on MonoGame; it instead creates an abstraction independent of any particular back-end to suit its needs, and then provides numerous implementations of that abstraction for common frameworks such as MonoGame and SFML.  It also allows a user to implement their own back-end if they so desire.
 
-This pairs well GoRogue in that it provides some level of portability, yet does not forgo the possibility of interfacing directly with a back-end to do things outside the scope of a console emulation (render non-grid based images, for example)
+This pairs well GoRogue in that it provides some level of portability, yet does not forgo the possibility of interfacing directly with a back-end to do things outside the scope of console emulation (render non-grid based images, for example).
 
 ## Cooperative Community
-GoRogue and SadConsole's communities interact frequently.  There are numerous developers on SadConsole's discord that are using GoRogue with SadConsole, and the developers of GoRogue and SadConsole respectively cooperate on various projects (including the shared primitives library).
+GoRogue and SadConsole's communities interact frequently.  There are numerous developers on SadConsole's discord that are using GoRogue with SadConsole, and the developers of GoRogue and SadConsole respectively cooperate on various projects (including the shared primitives library and the integration library).
 
 ## First-Class Integration Support
-The developers of GoRogue and SadConsole, along with tremendous support from some members of the communities, have created an "integration library" that provides a number of APIs that integrate GoRogue and SadConsole seamlessly: [TheSadRogue.Integration](https://github.com/thesadrogue/TheSadRogue.Integration).  It's similar in spirit to the one implemented for SadConsole v8 and GoRogue v2, though implemented much differently.
+The developers of GoRogue and SadConsole, along with tremendous support from some members of the communities, have created an "integration library" that provides a number of APIs that integrate GoRogue and SadConsole seamlessly: [TheSadRogue.Integration](https://github.com/thesadrogue/TheSadRogue.Integration).  It's similar in spirit to the one created for SadConsole v8 and GoRogue v2, though it is implemented much differently.
 
-The integration library uses `GoRogue.GameFramework` as its base structure for dealing with maps, etc; so in general, the implementation as-is is subject to any of the same limitations inherent to `GameFramework`.  Even in cases where this is not viable for out-of-box use, however, it may be useful to either fork, or simply use as a reference point for how to build your own structure.  The library implements things very efficiently and is generally well documented.
+The integration library uses `GoRogue.GameFramework` as its base structure for dealing with maps, etc; so in general, the implementation as-is is subject to all of the same limitations inherent to `GameFramework`.  Even in cases where this is not viable for out-of-box use, however, it may be useful to fork and modify, or simply to use as a reference point for how to build your own structure.  The library implements things very efficiently and the code is generally well documented.
 
 # Current State Snapshot
 Since GoRogue v3 is not a finished product, there are a few things to be aware of.  The following summarizes the release status of each component of this toolchain at the time of writing:
@@ -33,11 +33,11 @@ Since GoRogue v3 is not a finished product, there are a few things to be aware o
 | SadConsole.Extended     | Full              | Yes    | Stable        |
 | TheSadRogue.Integration | Unpublished Alpha | No     | Partially stable; no major known bugs, and no major refactors planned.  Serialization not implemented. |
 
-Note that although the integration library does not have a released NuGet package, the source is openly avaialable and it is set up to compile a NuGet package; and therefore it is quite viable to clone the source and compile the code to a NuGet package that you may use in a local NuGet feed.  Additionally, an official NuGet release is expected soon.
+Note that although the integration library does not have a released NuGet package, the source is openly available and it is set up to compile a NuGet package; and therefore it is quite viable to clone the source and compile the code to a NuGet package that you may use in a local NuGet feed.  Additionally, an official NuGet release is expected soon.
 
 # Documentation
 Each element in this toolchain has its own documentation, which includes API documentation and in some cases articles which constitute tutorials on how to use various features.  Each library's documentation is linked and described (as it exists at the time of writing) below:
 - [TheSadRogue.Primitives](https://thesadrogue.github.io/TheSadRogue.Primitives/) - Includes only API documentation.
-- [GoRogue](http://www.roguelib.com) - Includes API documentation, upgrade guides, and some how-to's for various features
-- [SadConsole/SadConsole.Extended](https://www.sadconsole.com/v9) - Includes API documentation, getting started guides, and some how-to's/tutorials
+- [GoRogue](http://www.roguelib.com) - Includes API documentation, upgrade guides, and some how-to's for various features.
+- [SadConsole/SadConsole.Extended](https://www.sadconsole.com/v9) - Includes API documentation, getting started guides, and some how-to's/tutorials.
 - [TheSadRogue.Integration](https://github.com/thesadrogue/TheSadRogue.Integration) - No web-hosted API documentation (though all classes are documented such that an IDE will retrieve documentation).  Each project in the GitHub repository contains its own README which details its architecture.  There is an `ExampleGame` project which details basic usage.

@@ -47,8 +47,8 @@ The following is a quick-reference describing some basic use cases and the class
 | ---------------------------------------------------- | ---------------------------- |
 | Terrain-Layer Objects                                | `RogueLikeCell`              |
 | Non-Terrain Layer Objects (player, monsters, etc)    | `RogueLikeEntity`            |
-| Map Rendered at a Single Point on Screen             | `RogueLikeMap` (without specifying a DefaultRenderer) |
-| Map Rendered at Different Points on Screen           | `RogueLikeMap` (no DefaultRenderer); add BOTH the Map AND any renderers to the SadConsole Screen hierarchy |
+| Map Rendered at a Single Point on Screen             | `RogueLikeMap` (specify DefaultRenderer parameters to constructor) |
+| Map Rendered at Different Points on Screen           | `RogueLikeMap` (null default renderer parameters to constructor); add BOTH the Map AND any renderers to the SadConsole screen hierarchy |
 | Creating Player Controls                             | `PlayerKeybindingsComponent` |
 | Controlling Visibility Based on FOV                  | `FieldOfView` namespace      |
 | Creating Components to Attach to Non-Terrain Objects | `RogueLikeComponentBase`/`RogueLikeComponentBase<T>` |

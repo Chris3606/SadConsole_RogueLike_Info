@@ -12,7 +12,7 @@ This makes the most sense for general use, as it avoids pointlessly replicating 
 - No out-of-box multi-level map support
 - No infinite map/chunkloading support
 
-There may be cases, therefore, when it is not desireable to use the integration library.  In these cases, you may not be able to use the integration library as-is.  However, it is open-source, meaning that in these cases you can still fork and modify it for your needs, or just use its architecture as a model/reference point for building your own from scratch.  Given that some elements of integration are non-trivial to write generically, this can still be of significant value.
+There may be cases, therefore, when it is not desireable to use the integration library.  In these cases, you may not be able to use the integration library as-is.  However, it is open-source, meaning that in these cases you can still fork and modify it for your needs, or just use its architecture as a model/reference point for building your own from scratch.  Given that some elements of integration are non-trivial to write properly, this can still be of significant value.
 
 ## Rendering Strategy
 Recall from the [SadConsole overview](02_sadconsole_overview.md#Differences-between-surfaces-and-entities) that there are some important distinctions between SadConsole entities, and a cell surface being rendered via a screen surface.  Notably, as a result of those distinctions, it would be too performance intensive to have every piece of terrain on a map be visually represented by a SadConsole `Entity`.
@@ -21,9 +21,9 @@ Also recall that GoRogue's "game framework" defines map objects in terms of a si
 
 It is obviously beneficial to have non-terrain map objects be represented by SadConsole `Entity`.  Since rendering terrain using `Entity` instances is not viable, however, a different approach is required here.  Broadly speaking, there are two basic ways to go about rendering game framework terrain in SadConsole:
 
-- Have each piece of terrain record its appearance.  Copy the appearances for terrain on the map to the `ColoredGlyph` within a cell surface, and ensure to update that surface when any terrain appearance changes.
+- Have each piece of terrain record its appearance.  Copy the appearances for terrain on the map to the `ColoredGlyph` within a cell surface, and ensure to update that surface when any terrain's appearance changes.
     - This is generally the simplest approach to implement, and it is viable for a fair number of use cases.  However, it is not the most efficient method, and can be error-prone if written generically.  Therefore, the integration library takes a different approach.
-- Have each piece of terrain record its appearance.  Create a custom `ICellSurface` which pulls its `ColoredGlyphs` by accessing the terrain layer of the `Map` and retrieving its appearance field when a `ColoredGlyph` is requested, instead of retrieving them from an array of `ColoredGlyphs`.
+- Have each piece of terrain record its appearance.  Create a custom `ICellSurface` which retrieves its `ColoredGlyphs` by accessing the terrain layer of the `Map` and retrieving its appearance field, instead of retrieving them from a completely separate array of `ColoredGlyphs`.
     - This is the core approach the integration library takes.  It is not as simple to implement as the first approach, but the burden of the additional work falls to the library writers to implement.  It also enables more straightforward integration of other corresponding systems of the two libraries, such as their component systesms.  Ultimately, from the perspective of a user, this method results in a more efficient, less error prone, and easier to use product.
 
 Understanding that the integration library takes the second approach will help you to better comprehend its core architecture.
@@ -37,6 +37,8 @@ Considering that each of these component systems serve different purposes and pr
 
 The integration library provides a solution to this by integrating the component systems into one in cases where they are both present.  Generally, you will find an `AllComponents` field on objects which have both SadConsole and GoRogue component functionality.  Any component added to this structure will automatically be added to both SadConsole's and GoRogue's component systems as needed.  For example, an object added to this field could simultaneously implement SadConsole's `IComponent` and use that interface to hook into the `Update` loop, and also implement GoRogue's `IParentAwareComponent` and benefit from that functionality.  The integration library also provides convenient base classes for implementing components as such, which will be discussed later.
 
+Note that there are some disparities in where each component system is offered; notably, `RogueLikeCell` (eg. terrain) objects support GoRogue components, but _not_ SadConsole components; and as such, `RogueLikeCell` does not have an `AllComponents` field.  You may still add components to the `GoRogueComponents` field of terrain; however they cannot take advantage of any functionality defined by SadConsole's component system (such as participation in the `Update` or `Render` loops).  Each terrain object having components which could participate in the `Update`/`Render` loop directly would be far too performance intensive to maintain.
+
 # Basic Object Hierarchy
 The basic object hierarchy for the core SadConsole structures is described [here](https://github.com/thesadrogue/TheSadRogue.Integration/tree/main/TheSadRogue.Integration#thesadrogueintegration).  Understanding the functionality provided by these structures is crucial to understanding how to properly utilize the library.
 
@@ -47,13 +49,13 @@ The following is a quick-reference describing some basic use cases and the class
 | ---------------------------------------------------- | ---------------------------- |
 | Terrain-Layer Objects                                | `RogueLikeCell`              |
 | Non-Terrain Layer Objects (player, monsters, etc)    | `RogueLikeEntity`            |
-| Map Rendered at a Single Point on Screen             | `RogueLikeMap` (specify DefaultRenderer parameters to constructor) |
+| Map Rendered at a Single Point on Screen             | `RogueLikeMap` (specify DefaultRenderer parameters to constructor, or specify null and assign to the DefaultRenderer field of the Map later) |
 | Map Rendered at Different Points on Screen           | `RogueLikeMap` (null default renderer parameters to constructor); add BOTH the Map AND any renderers to the SadConsole screen hierarchy |
 | Creating Player Controls                             | `PlayerKeybindingsComponent` |
 | Controlling Visibility Based on FOV                  | `FieldOfView` namespace      |
 | Creating Components to Attach to Non-Terrain Objects | `RogueLikeComponentBase`/`RogueLikeComponentBase<T>` |
 | Creating Components to Attach to Terrain Object      | Any class (do NOT use `IComponent` from SadConsole); its functionality is not supported in terrain components |
-| Creating Components to Attach to Maps                | Can inherit from SadConsole's `IComponent` and/or use any GoRogue component functionality |
+| Creating Components to Attach to Maps                | `RogueLikeComponentBase`/`RogueLikeComponentBase<T>` |
 
 # Example Code
-In addition to this document, the forms of documentation currently available for the integration library are listed in the [readme](README.md#documentation).  In particular, you are encouranged to look through the [ExampleGame](https://github.com/thesadrogue/TheSadRogue.Integration/tree/main/ExampleGame) project, as it demonstrates the basic features of the library.
+In addition to this document, the forms of documentation currently available for the integration library are listed in the [readme](README.md#documentation).  In particular, you are encouraged to look through the [ExampleGame](https://github.com/thesadrogue/TheSadRogue.Integration/tree/main/ExampleGame) project and the code given to you in the new project template, as those sources demonstrate some of the basic features of the library.

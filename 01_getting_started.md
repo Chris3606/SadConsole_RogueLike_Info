@@ -35,22 +35,18 @@ For reference, this will leave you with a project that has the following NuGet p
 - `GoRogue` - The GoRogue package.
 
 ## Project with Integration Library
-In the future, the integration library will have an official NuGet release and `dotnet` template associated with it, so setting up a project will become very easy.  For now, however, please note that there are some manual processes involved.
+The integration library is currently available on NuGet, and provides an additional package that provides templates for the `dotnet new` command that make creating a new project fast and easy.
 
-In order to ensure dependencies are handled properly, it is highly recommended that you set up a local folder to act as a NuGet feed and place a manually compiled NuGet package in that feed, which allows you to use NuGet to install the integration library; this is the process that is outlined here.  Creating manual references is also technically possible, however if future changes break your dependency chain, you have been warned.
+1. From your CLI, run `dotnet new install TheSadRogue.Integration.Templates`.  This will install two `dotnet` templates on your system:
+    - `gorogue-sadconsole-mg`: A template for an integration library project using the MonoGame back-end for SadConsole
+    - `gorogue-sadconsole-sfml`: A template for an integration library project using the MonoGame back-end for SadConsole
+2. Run `dotnet new gorogue-sadconsole-[mg | sfml] -O <NameOfGame>`.  Specify `mg` or `sfml` as appropriate for the SadConsole back-end you want to use (see above).
 
-1. Set up a [Local NuGet Feed](https://docs.microsoft.com/en-us/nuget/hosting-packages/local-feeds).  The simplest way to accomplish this is to run: `nuget sources Add -Name "My Local NuGet Feed" -source <Path_To_Folder_Where_You_Will_Place_NuGet_Packages>`.
-2. Clone the [integration library source code](https://github.com/thesadrogue/TheSadRogue.Integration).
-3. Compile the source code in `Release` mode.  This will not only compile the source code, but also create a NuGet package (ie. a `.nupkg` file).  This file will be placed in the `<repository_root>/nuget` folder.
-4. Copy the .nupkg files from above (EXCLUDE the .snupkg files) to the directory specified when you created your NuGet feed.
-5. Create a new .NET project (Console is fine, the type can be switched later).
-6. Install `TheSadRogue.Integration` from your local NuGet feed.  Note that some UIs allow you to select only specific NuGet feeds to show packages from when searching; ensure that you have your local feed selected in this case, or you will not be able to find the package.  This will install the integration library and core dependencies.  Also ensure that you select "include prereleases".
-7. Install the appropriate host package for the rendering back-end you decided on: eg. `SadConsole.Host.MonoGame` or `SadConsole.Host.SFML`.
-8. Copy-paste the sample SadConsole code included at the bottom of this section to test your project.
+A new subdirectory will be created in the current directory of your CLI called `<NameOfGame>`.  This directory will contain a `.csproj` for your project, as well as some documented starter code that demonstrates some basic integration library features.
 
-Note that, if in the future, an update is released to the integration library and you wish to compile the update and use it, it may be prudent to purge all NuGet caches before attempting the upgrade.  In general the version number for the NuGet package is not incremented when it is updated since the package does not yet have an official NuGet release, and NuGet is not designed to handle a different package with the same package ID and version number properly.
+If you are using Visual Studio or some similar IDE, also note that, as is typically the case with projects created via the `dotnet new` command, the template has a `.csproj` (project) but _not_ a `.sln` (solution) file.  Visual Studio will create a default solution file for you the first time you open the `.csproj`, and if you select `File -> Save All` as soon as the project opens, it will save the created `.sln` file to disk.  You can also create a `.sln` manually via the appropriate `dotnet new` command if you wish.  Either way, you will need a .sln file in order for Visual Studio to properly handle build configurations (Debug vs Release).
 
-For reference, this will leave you with a project that has the following NuGet packages installed (some explicitly, the rest automatically because they are dependencies):
+For reference, the created project will have the following NuGet packages installed (some explicitly, the rest automatically because they are dependencies):
 - `TheSadRogue.Primitives` - Library of shared primitive types between GoRogue and SadConsole.
 - `Newtonsoft.JSON` - JSON library used by SadConsole for serialization.
 - `SadConsole` - The core SadConsole package, with no back-end renderer implementation.
@@ -59,55 +55,3 @@ For reference, this will leave you with a project that has the following NuGet p
 - `OptimizedPriorityQueue` - Priority queue library on which GoRogue relies.
 - `GoRogue` - The GoRogue package.
 - `TheSadRogue.Integration` - Library containing APIs to integrate GoRogue's GameFramework with SadConsole.
-
-### SadConsole Starter Code
-```CS
-using SadConsole;
-using SadRogue.Primitives;
-
-namespace <Insert_Namespace_Here>
-{
-    class Program
-    {
-        private static void Main(string[] args)
-        {
-            var SCREEN_WIDTH = 80;
-            var SCREEN_HEIGHT = 25;
-
-            SadConsole.Settings.WindowTitle = "SadConsole Game";
-            SadConsole.Settings.UseDefaultExtendedFont = true;
-
-            SadConsole.Game.Create(SCREEN_WIDTH, SCREEN_HEIGHT);
-            SadConsole.Game.Instance.OnStart = Init;
-            SadConsole.Game.Instance.Run();
-            SadConsole.Game.Instance.Dispose();
-        }
-
-        private static void Init()
-        {
-            // This code uses the default console created for you at start
-            var startingConsole = Game.Instance.StartingConsole;
-
-            startingConsole.FillWithRandomGarbage(SadConsole.Game.Instance.StartingConsole.Font);
-            startingConsole.Fill(new Rectangle(3, 3, 23, 3), Color.Violet, Color.Black, 0, Mirror.None);
-            startingConsole.Print(4, 4, "Hello from SadConsole");
-
-            // --------------------------------------------------------------
-            // This code replaces the default starting console with your own.
-            // If you use this code, delete the code above.
-            // --------------------------------------------------------------
-            /*
-            var console = new Console(Game.Instance.ScreenCellsX, SadConsole.Game.Instance.ScreenCellsY);
-            console.FillWithRandomGarbage(console.Font);
-            console.Fill(new Rectangle(3, 3, 23, 3), Color.Violet, Color.Black, 0, 0);
-            console.Print(4, 4, "Hello from SadConsole");
-
-            Game.Instance.Screen = console;
-
-            // This is needed because we replaced the initial screen object with our own.
-            Game.Instance.DestroyDefaultStartingConsole();
-            */
-        }
-    }
-}
-```

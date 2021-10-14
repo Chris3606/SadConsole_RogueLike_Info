@@ -31,13 +31,11 @@ Since GoRogue v3 is not a finished product, there are a few things to be aware o
 | GoRogue                 | Alpha             | Yes    | Mostly stable; ongoing refactors but generally manageable and well documented.  No major known bugs.  Serialization not fully implemented. |
 | SadConsole              | Full              | Yes    | Stable        |
 | SadConsole.Extended     | Full              | Yes    | Stable        |
-| TheSadRogue.Integration | Unpublished Alpha | No     | Partially stable; no major known bugs, and no major refactors planned.  Serialization not implemented. |
-
-Note that although the integration library does not have a released NuGet package, the source is openly available and it is set up to compile a NuGet package; and therefore it is quite viable to clone the source and compile the code to a NuGet package that you may use in a local NuGet feed.  Additionally, an official NuGet release is expected soon.
+| TheSadRogue.Integration | Alpha             | Yes    | Partially stable; no major known bugs, and no major refactors planned.  Serialization not implemented. |
 
 # Documentation
 Each element in this toolchain has its own documentation, which includes API documentation and in some cases articles which constitute tutorials on how to use various features.  Each library's documentation is linked and described (as it exists at the time of writing) below:
 - [TheSadRogue.Primitives](https://thesadrogue.github.io/TheSadRogue.Primitives/) - Includes only API documentation.
 - [GoRogue](http://www.roguelib.com) - Includes API documentation, upgrade guides, and some how-to's for various features.
 - [SadConsole/SadConsole.Extended](https://www.sadconsole.com/v9) - Includes API documentation, getting started guides, and some how-to's/tutorials.
-- [TheSadRogue.Integration](https://github.com/thesadrogue/TheSadRogue.Integration) - No web-hosted API documentation (though all classes are documented such that an IDE will retrieve documentation).  Each project in the GitHub repository contains its own README which details its architecture.  There is an `ExampleGame` project which details basic usage.
+- [TheSadRogue.Integration](https://github.com/thesadrogue/TheSadRogue.Integration) - No web-hosted API documentation (though all classes are documented such that an IDE will retrieve documentation).  Each project in the GitHub repository contains its own README which details its architecture and basic functionality.  There is an `ExampleGame` project which details basic usage, and the basic `dotnet` template provides some well-documented code as well.

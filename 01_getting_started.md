@@ -37,7 +37,7 @@ For reference, this will leave you with a project that has the following NuGet p
 ## Project with Integration Library
 The integration library is currently available on NuGet, and provides an additional package that provides templates for the `dotnet new` command that make creating a new project fast and easy.
 
-1. From your CLI, run `dotnet new install TheSadRogue.Integration.Templates`.  This will install two `dotnet` templates on your system:
+1. From your CLI, run `dotnet new --install TheSadRogue.Integration.Templates`.  This will install two `dotnet` templates on your system:
     - `gorogue-sadconsole-mg`: A template for an integration library project using the MonoGame back-end for SadConsole
     - `gorogue-sadconsole-sfml`: A template for an integration library project using the MonoGame back-end for SadConsole
 2. Run `dotnet new gorogue-sadconsole-[mg | sfml] -O <NameOfGame>`.  Specify `mg` or `sfml` as appropriate for the SadConsole back-end you want to use (see above).

@@ -1,6 +1,8 @@
 # SadConsole-GoRogue Mini-Tutorial
 This repository contains a series of markdown-based introductions to concepts for those looking to use SadConsole and GoRogue for roguelike game development or similar such endeavors.  It assumes some familiarity with GoRogue, and focuses mostly on SadConsole and how the two interact (and why you might want to use them together).
 
+These docs will move elsewhere at some point in the future; this repository will be archived at that time.
+
 # Why Pair GoRogue with SadConsole?
 GoRogue aims to be a renderer independent library, and as such does not tie itself to any particlar library in that regard.  That much said, there are a number of reasons SadConsole can make a very good pairing with GoRogue:
 

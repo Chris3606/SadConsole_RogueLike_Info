@@ -14,13 +14,13 @@ For reference, functionality now in the primitives library includes all of the b
 ## Back-End Flexibility
 SadConsole v9 is no longer based on MonoGame; it instead creates an abstraction independent of any particular back-end to suit its needs, and then provides numerous implementations of that abstraction for common frameworks such as MonoGame and SFML.  It also allows a user to implement their own back-end if they so desire.
 
-This pairs well GoRogue in that it provides some level of portability, yet does not forgo the possibility of interfacing directly with a back-end to do things outside the scope of console emulation (render non-grid based images, for example).
+This pairs well with GoRogue in that it provides some level of portability, yet does not forgo the possibility of interfacing directly with a back-end to do things outside the scope of console emulation (render non-grid based images, for example).
 
 ## Cooperative Community
 GoRogue and SadConsole's communities interact frequently.  There are numerous developers on SadConsole's discord that are using GoRogue with SadConsole, and the developers of GoRogue and SadConsole respectively cooperate on various projects (including the shared primitives library and the integration library).
 
 ## First-Class Integration Support
-The developers of GoRogue and SadConsole, along with tremendous support from some members of the communities, have created an "integration library" that provides a number of APIs that integrate GoRogue and SadConsole seamlessly: [TheSadRogue.Integration](https://github.com/thesadrogue/TheSadRogue.Integration).  It's similar in spirit to the one created for SadConsole v8 and GoRogue v2, though it is implemented much differently.
+The developers of GoRogue and SadConsole, along with tremendous support from some members of the communities, have created an "integration library" that provides a set of APIs that integrate GoRogue and SadConsole seamlessly: [TheSadRogue.Integration](https://github.com/thesadrogue/TheSadRogue.Integration).  It's similar in spirit to the one created for SadConsole v8 and GoRogue v2, though it is implemented much differently.
 
 The integration library uses `GoRogue.GameFramework` as its base structure for dealing with maps, etc; so in general, the implementation as-is is subject to all of the same limitations inherent to `GameFramework`.  Even in cases where this is not viable for out-of-box use, however, it may be useful to fork and modify, or simply to use as a reference point for how to build your own structure.  The library implements things very efficiently and the code is generally well documented.
 

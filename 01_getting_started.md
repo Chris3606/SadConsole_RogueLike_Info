@@ -1,5 +1,5 @@
 # Getting Started
-This page will serve as a general guide for setting up a project for using SadConsole and GoRogue.  It is not a step-by-step tutorial, per-se, and tends to assume (though does not require) a basic knowledge of .NET development, including tasks such as installing Nuget packages and similar.  There is a multitude of resources available on the internet for these topics, including official documentation from Microsoft, if you encounter something you're unfamiliar with.  Note that each library involved also provides its own documentation, as linked in the [readme](README.md#documentation); and this set of write-ups is NOT intended to be a substitute therein.
+This page will serve as a general guide for setting up a project for using SadConsole and GoRogue.  It is not a step-by-step tutorial, per-se, and tends to assume (though does not require) a basic knowledge of .NET development, including tasks such as installing Nuget packages and similar.  There are a multitude of resources available on the internet for these topics, including official documentation from Microsoft, if you encounter something you're unfamiliar with.  Note that each library involved also provides its own documentation, as linked in the [readme](README.md#documentation); and this set of write-ups is NOT intended to be a substitute therein.
 
 # Prequisites
 Before creating a project, it is recommended that you consider the following items:
@@ -10,7 +10,7 @@ SadConsole and GoRogue all support .NET Standard 2.1 or greater, .NET Core 3.1 o
 Note that .NET Framework is NOT supported.
 
 ## Decide on a Rendering Back-End
-As outlined in the [readme](README.md#back-end-flexibility), SadConsole v9 offers support for multiple back-end renderers.  It is possible as a library user to implement support for a custom back-end; however doing so is beyond the scope of this document.  Currently, the SadConsole author provides back-ends for MonoGame and SFML:
+As outlined in the [readme](README.md#back-end-flexibility), SadConsole v9 offers support for multiple back-end renderers.  It is possible as a library user to implement support for a custom back-end; however doing so is beyond the scope of this article.  Currently, the SadConsole author provides back-ends for MonoGame and SFML:
 - [SadConsole.Host.MonoGame](https://www.nuget.org/packages/SadConsole.Host.MonoGame/)
     - All other things equal, this is generally the recommended back-end for starting out.  Simply put, it has the most users, and comes with the easiest setup and fewest caveats cross-platform.
 - [SadConsole.Host.SFML](https://www.nuget.org/packages/SadConsole.Host.SFML/)
@@ -19,7 +19,7 @@ As outlined in the [readme](README.md#back-end-flexibility), SadConsole v9 offer
 ## Decide Whether to Use the Integration Library
 As outlined in the [readme](README.md#first-class-integration-support), an "integration" library has been created by the developers of GoRogue and SadConsole, as well as a few people from their communities.  This library is designed to provide a set of APIs that integrate GoRogue and SadConsole seamlessly, and thereby ease the process of using the two libraries together.  It is useful in many cases; but may not fit all projects out of the box.  Details on when may or may not want to use it can be found at the linked readme, as well as [here](03_integration_library_overview.md#based-on-gameframework).
 
-If you're unsure whether to use it, my recommendation is to start by using it, and then modify and/or pivot away from it as needed if you find a case where it isn't suiting your needs.  The integration library does aim to support a wide variety of use cases, and regardless some of the boilerplate needed to integrate SadConsole and GoRogue is non-trivial to write correctly.  Therefore, using the integration library initially will save you needing deal with that process immediately.  Further, it may serve as an example for you if you do end up needing to deviate.
+If you're unsure whether to use it, my recommendation is to start by using it, and then modify and/or pivot away from it as needed if you find a case where it isn't suiting your needs.  The integration library does aim to support a wide variety of use cases, and regardless some of the boilerplate needed to integrate SadConsole and GoRogue is non-trivial to write correctly.  Therefore, using the integration library initially will save you needing deal with that process immediately.  Furthermore, it may serve as an example for you if you do end up needing to deviate.
 
 In either case, the project creation instructions will differ a little depending on whether you decide to use the integration library or not, as detailed below.
 
@@ -31,7 +31,7 @@ The integration library is currently available on NuGet, and the authors have al
 
 1. From your CLI, run `dotnet new --install TheSadRogue.Integration.Templates`.  This will install two `dotnet` templates on your system:
     - `gorogue-sadconsole-mg`: A template for an integration library project using the MonoGame back-end for SadConsole
-    - `gorogue-sadconsole-sfml`: A template for an integration library project using the MonoGame back-end for SadConsole
+    - `gorogue-sadconsole-sfml`: A template for an integration library project using the SFML back-end for SadConsole
 2. Run `dotnet new gorogue-sadconsole-[mg | sfml] -O <NameOfGame>`.  Specify `mg` or `sfml` as appropriate for the SadConsole back-end you want to use (see above), and replace `<NameOfGame>` with your desired name.
     - Note: Visual Studio 2022, as well as Rider, have GUI support for `dotnet new` templates.  As such, once you have run the `dotnet new --install` command from step 1, you should also be able to select these templates from the "New Project" dialog in those IDEs if you prefer.
 

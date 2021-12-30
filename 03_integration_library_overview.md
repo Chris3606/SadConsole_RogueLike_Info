@@ -3,7 +3,7 @@ This page is designed to give you a very broad overview of the GoRogue-SadConsol
 
 # Design Goals
 The integration library, in general, is designed with the following set of goals in mind:
-1. Provide a safe, easy interface for a user to use.
+1. Provide a performant, safe, and easy interface for a user to use.
 2. Focus code primarily on two areas:
     - Integrating areas where GoRogue and SadConsole provide structures for the same concepts (for example, the component systems, highlighted in below sections).
     - Writing helpful features that can only be written with GoRogue-SadConsole integration as a given (for example, FOV visibility handling).
@@ -18,10 +18,11 @@ Recall that GoRogue provides [two main categories](http://www.roguelib.com/artic
 
 This makes the most sense for general use, as it avoids pointlessly replicating structures for maps and such.  However, game framework by definition is less generic than the rest of the library, and although it fits many use cases, there are times where it may not fit a particular use case.  Some notable limitations of game framework include (but are not necessarily limited to):
 
-- No out-of-box multi-level map support
+- No out-of-box multi-z-level open-world map support
 - No infinite map/chunkloading support
+- No out-of-box support for objects taking up multiple squares
 
-There may be cases, therefore, when it is not desireable to use the integration library.  In these cases, you may not be able to use the integration library as-is.  However, it is open-source, meaning that in these cases you can still fork and modify it for your needs, or just use its architecture as a model/reference point for building your own from scratch.  Given that some elements of integration are non-trivial to write properly, this can still be of significant value.
+Although these limitations can be worked around in some cases, there can be cases when it is not desireable to use the integration library.  In these cases, you may not be able to use the integration library as-is.  However, it is open-source, meaning that in these cases you can still fork and modify it for your needs, or just use its architecture as a model/reference point for building your own from scratch.  Given that some elements of integration are non-trivial to write properly, this can still be of significant value.
 
 ## Rendering Strategy
 Recall from the [SadConsole overview](02_sadconsole_overview.md#Differences-between-surfaces-and-entities) that there are some important distinctions between SadConsole entities, and a cell surface being rendered via a screen surface.  Notably, as a result of those distinctions, it would be too performance intensive to have every piece of terrain on a map be visually represented by a SadConsole `Entity`.
@@ -38,13 +39,13 @@ It is obviously beneficial to have non-terrain map objects be represented by Sad
 Understanding that the integration library takes the second approach will help you to better comprehend its core architecture.
 
 ## Component Integration
-Recall that SadConsole's `IScreenObject` interface provides a facility for attaching and detaching components to objects.  These components may handle input and participate in the `Update`/`Render` loops.  Also note that GoRogue's `IGameObject` interface provides a separate facility for attaching components to implementing objects, and GoRogue's `Map` also provides a similar facility.
+Recall that SadConsole's `IScreenObject` interface provides a facility for attaching and detaching components to and from objects.  These components may handle input and participate in the `Update`/`Render` loops.  Also note that GoRogue's `IGameObject` interface provides a separate facility for attaching components to implementing objects, and GoRogue's `Map` also provides a similar facility.
 
 In all of these cases, each library provides access to its components via a separate field on the object the components are being attached to.  For example, components attached to a SadConsole `IScreenObject` are accessible via the `IScreenObject.SadComponents` field, and GoRogue components are similarly accessible via a field called `GoRogueComponents`.
 
-Considering that each of these component systems serve different purposes and provide differing functionality, this can obviously cause some confusion when the libraries are integrated.  If an object implements `IGameObject` and also inherits from `Entity`, for example, it would have both a SadConsole component system (from `Entity`, because it derives from `ScreenObject`), and a GoRogue component system.
+Considering that each of these component systems serve different purposes and provide differing functionality, this can obviously cause some confusion when the libraries are integrated.  If an object implements `IGameObject` and also inherits from `Entity`, for example, it would have both a SadConsole component system (from `Entity`, because it derives from `ScreenObject`), and a GoRogue component system.  A SadConsole component _could_ be added to the GoRogue component system, but none of the SadConsole-specific functionality would work if it wasn't also added to SadConsole's.  Similarly, a component implementing GoRogue's `IParentAwareComponent` interface _could_ be added to SadConsole's component system (provided it also implements SadConsole's `IComponent`); but in this case none of the `IParentAwareComponent` functionality would work properly.
 
-The integration library provides a solution to this by integrating the component systems into one in cases where they are both present.  Generally, you will find an `AllComponents` field on objects which have both SadConsole and GoRogue component functionality.  Any component added to this structure will automatically be added to both SadConsole's and GoRogue's component systems as needed.  For example, an object added to this field could simultaneously implement SadConsole's `IComponent` and use that interface to hook into the `Update` loop, and also implement GoRogue's `IParentAwareComponent` and benefit from that functionality.  The integration library also provides convenient base classes for implementing components as such, which will be discussed later.
+The integration library provides a solution to this by integrating the component systems into one property, in places where they are both present.  You will find an `AllComponents` field on all objects which have both SadConsole and GoRogue component functionality.  Any component added via this field will automatically be added to both SadConsole's and GoRogue's component systems as needed.  For example, an object added to this field could simultaneously implement SadConsole's `IComponent` and use that interface to hook into the `Update` loop, and also implement GoRogue's `IParentAwareComponent` and benefit from that functionality.  The integration library also provides convenient base classes for implementing components as such, which are discussed in the integration library's documentation.
 
 Note that there are some disparities in where each component system is offered; notably, `RogueLikeCell` (eg. terrain) objects support GoRogue components, but _not_ SadConsole components; and as such, `RogueLikeCell` does not have an `AllComponents` field.  You may still add components to the `GoRogueComponents` field of terrain; however they cannot take advantage of any functionality defined by SadConsole's component system (such as participation in the `Update` or `Render` loops).  Each terrain object having components which could participate in the `Update`/`Render` loop directly would be far too performance intensive to maintain.
 

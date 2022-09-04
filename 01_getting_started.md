@@ -32,7 +32,7 @@ The integration library is currently available on NuGet, and the authors have al
 1. From your CLI, run `dotnet new --install TheSadRogue.Integration.Templates`.  This will install two `dotnet` templates on your system:
     - `gorogue-sadconsole-mg`: A template for an integration library project using the MonoGame back-end for SadConsole
     - `gorogue-sadconsole-sfml`: A template for an integration library project using the SFML back-end for SadConsole
-2. Run `dotnet new gorogue-sadconsole-[mg | sfml] -O <NameOfGame>`.  Specify `mg` or `sfml` as appropriate for the SadConsole back-end you want to use (see above), and replace `<NameOfGame>` with your desired name.
+2. Run `dotnet new gorogue-sadconsole-[mg | sfml] -o <NameOfGame>`.  Specify `mg` or `sfml` as appropriate for the SadConsole back-end you want to use (see above), and replace `<NameOfGame>` with your desired name.
     - Note: Visual Studio 2022, as well as Rider, have GUI support for `dotnet new` templates.  As such, once you have run the `dotnet new --install` command from step 1, you should also be able to select these templates from the "New Project" dialog in those IDEs if you prefer.
 
 A new subdirectory will be created in the current directory of your CLI called `<NameOfGame>`.  This directory will contain a `.csproj` for your project, as well as some documented starter code that demonstrates some basic integration library features.

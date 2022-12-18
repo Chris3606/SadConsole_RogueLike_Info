@@ -30,7 +30,7 @@ Since GoRogue v3 is not a finished product, there are a few things to be aware o
 | Library                 | State of Release  | Nuget? | API Stability |
 | ----------------------- | ----------------- | ------ | ------------- |
 | TheSadRogue.Primitives  | Full              | Yes    | Stable        |
-| GoRogue                 | Beta              | Yes    | Stable; API is documented.  No major known bugs. |
+| GoRogue                 | Beta              | Yes    | Stable; API is documented (though examples are lacking in some areas).  No major known bugs. |
 | SadConsole              | Full              | Yes    | Stable        |
 | SadConsole.Extended     | Full              | Yes    | Stable        |
 | TheSadRogue.Integration | Beta              | Yes    | Mostly stable; no major known bugs, and no major refactors planned.  Serialization not implemented. |

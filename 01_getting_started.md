@@ -44,7 +44,7 @@ For reference, the created project will have the following NuGet packages instal
 - `Newtonsoft.JSON` - JSON library used by SadConsole for serialization.
 - `SadConsole` - The core SadConsole package, with no back-end renderer implementation.
 - `SadConsole.Host.[MonoGame | SFML]` - The package implementing the back-end renderer for the framework you decided on.
-- `Troschuetz.Random` - RNG library on which GoRogue relies.
+- `ShaiRandom` - RNG library on which GoRogue relies.
 - `OptimizedPriorityQueue` - Priority queue library on which GoRogue relies.
 - `GoRogue` - The GoRogue package.
 - `TheSadRogue.Integration` - Library containing APIs to integrate GoRogue's GameFramework with SadConsole.
@@ -60,6 +60,6 @@ For reference, this will leave you with a project that has the following NuGet p
 - `Newtonsoft.JSON` - JSON library used by SadConsole for serialization.
 - `SadConsole` - The core SadConsole package, with no back-end renderer implementation.
 - `SadConsole.Host.[MonoGame | SFML]` - The package implementing the back-end renderer for the framework you decided on.
-- `Troschuetz.Random` - RNG library on which GoRogue relies.
+- `ShaiRandom` - RNG library on which GoRogue relies.
 - `OptimizedPriorityQueue` - Priority queue library on which GoRogue relies.
 - `GoRogue` - The GoRogue package.
